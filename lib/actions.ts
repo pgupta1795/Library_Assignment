@@ -1,6 +1,6 @@
 'use server';
 
-import { db } from '@/lib/db';
+import {db} from '@/lib/db';
 import {
   type Kpi,
   kpis,
@@ -10,8 +10,8 @@ import {
   questions as questionsSchema,
   tags as tagsSchema,
 } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
-import { revalidatePath, unstable_noStore } from 'next/cache';
+import {eq} from 'drizzle-orm';
+import {revalidatePath,unstable_noStore} from 'next/cache';
 
 type CreateKpiInput = {
   kpi: Omit<Kpi, 'id' | 'createdAt' | 'favorite'>;
@@ -66,7 +66,7 @@ export const createKpi = async ({
 };
 
 export const getKpiById = async (id: string) => {
-  return await db.query.kpis.findFirst({
+  const kpi = await db.query.kpis.findFirst({
     where: eq(kpis.id, id),
     with: {
       stats: true,
@@ -90,6 +90,15 @@ export const getKpiById = async (id: string) => {
       },
     },
   });
+
+  if (!kpi) return null;
+  const {kpiToTags, kpiToQuestions, stats, ...rest}=kpi;
+  return {
+    ...rest,
+    tags: kpiToTags.map((kt) => kt.tag.name),
+    questions: kpiToQuestions.map((kq) => kq.question.text),
+    stats,
+  };
 };
 
 export const getKpis = async () => {
@@ -125,10 +134,10 @@ export const getKpis = async () => {
     },
   });
 
-  return kpis.map((kpi) => ({
+  return kpis.map(({ kpiToTags, kpiToQuestions, ...kpi }) => ({
     ...kpi,
-    tags: kpi.kpiToTags.map((kt) => kt.tag.name),
-    questions: kpi.kpiToQuestions.map((kq) => kq.question.text),
+    tags: kpiToTags.map((kt) => kt.tag.name),
+    questions: kpiToQuestions.map((kq) => kq.question.text),
   }));
 };
 

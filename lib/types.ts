@@ -1,19 +1,12 @@
-export type KpiData = {
-  favorite?: boolean;
-  id: string;
-  title: string;
-  description: string;
+import { Kpi } from './db/schema';
+
+export type KpiWithDetails = Kpi & {
   tags: string[];
+  questions: string[];
   stats: {
     commits: number;
     type: string;
     pages: number;
-    lastUpdated: string;
-  };
-  questions: string[];
+    lastUpdated: Date;
+  } | null;
 };
-
-export type KpiWithoutStats = Pick<
-  KpiData,
-  'title' | 'description' | 'tags' | 'questions'
->;

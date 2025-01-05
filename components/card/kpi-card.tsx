@@ -23,7 +23,7 @@ export default function KPICard({
 
           <div className="flex flex-col">
             <h3 className="font-medium text-gray-900">{title}</h3>
-            <p className="text-sm text-muted-foreground">{description}</p>
+            <p className="text-sm text-muted-foreground line-clamp-3">{description}</p>
           </div>
 
           <Star

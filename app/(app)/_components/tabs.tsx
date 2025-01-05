@@ -6,7 +6,7 @@ import {usePathname,useRouter} from 'next/navigation';
 import {useEffect,useState} from 'react';
 
 const KPITabs=({children}: {children: React.ReactNode}) => {
-	const [value,setValue]=useState('featured');
+	const [value,setValue]=useState('kpi');
 	const pathname=usePathname();
 	const router=useRouter();
 
@@ -15,7 +15,7 @@ const KPITabs=({children}: {children: React.ReactNode}) => {
 	},[pathname]);
 
 	return (
-		<Tabs className="w-full" defaultValue="featured" onValueChange={(value) => {
+		<Tabs className="w-full" defaultValue={value} onValueChange={(value) => {
 			setValue(value);
 			router.push(`/${value}`);
 		}}>

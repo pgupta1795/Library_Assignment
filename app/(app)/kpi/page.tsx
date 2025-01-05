@@ -1,6 +1,6 @@
 import KPICard from "@/components/card/kpi-card";
 import {KPICardDialog} from "@/components/card/kpi-card-dialog";
-import {KpiData} from '@/lib/types';
+import {KpiWithDetails} from '@/lib/types';
 import {Suspense} from 'react';
 
 export default async function KpiTab({
@@ -8,14 +8,14 @@ export default async function KpiTab({
 }: {
 	searchParams: {search?: string};
 }) {
-	const searchQuery=await searchParams?.search||'';
+	const searchQuery=(await searchParams)?.search||'';
 	const response=await fetch(
 		`${process.env.NEXT_PUBLIC_APP_URL}/api/kpis${searchQuery? `?search=${searchQuery}`:''}`,
 		{cache: 'no-store'}
 	);
 
 	if (!response.ok) throw new Error('Failed to fetch KPIs');
-	const kpis: KpiData[]=await response.json();
+	const kpis: KpiWithDetails[]=await response.json();
 	return (
 		<Suspense fallback={<div>Loading KPIs...</div>}>
 			<div className="flex flex-col space-y-4">

@@ -15,12 +15,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {toggleKpiFavorite} from '@/lib/actions';
-import {KpiData} from "@/lib/types";
+import {KpiWithDetails} from "@/lib/types";
 import {LayoutGrid,Star} from "lucide-react";
 import {Button} from '../ui/button';
 import {Separator} from "../ui/separator";
+import {KpiChart} from './kpi-charts';
 
-type KPICardDialogProps=KpiData&{
+type KPICardDialogProps=KpiWithDetails&{
   children: React.ReactNode;
 };
 
@@ -67,29 +68,31 @@ export function KPICardDialog({
             {/* Stats */}
             <div className="flex flex-row text-sm w-full items-center justify-between gap-x-2">
               <div className="flex flex-col">
-                <span className="font-medium">{stats.commits}</span>
+                <span className="font-medium">{stats?.commits}</span>
                 <span className="text-xs text-muted-foreground">Used</span>
               </div>
               <Separator orientation="vertical" className="h-10" />
               <div className="flex flex-col">
-                <span className="font-medium">{stats.type}</span>
+                <span className="font-medium">{stats?.type}</span>
                 <span className="text-xs text-muted-foreground">Type</span>
               </div>
               <Separator orientation="vertical" className="h-10" />
               <div className="flex flex-col">
-                <span className="font-medium">{stats.pages}</span>
+                <span className="font-medium">{stats?.pages}</span>
                 <span className="text-xs text-muted-foreground">Pages No.</span>
               </div>
               <Separator orientation="vertical" className="h-10" />
               <div className="flex flex-col">
-                <span className="font-medium">{stats.lastUpdated}</span>
+                <span className="font-medium">{stats?.lastUpdated?.toLocaleDateString()}</span>
                 <span className="text-xs text-muted-foreground">
                   Last Updated
                 </span>
               </div>
             </div>
 
-            <div className="w-full h-48 rounded-lg border border-border bg-muted" />
+            <div className="w-full h-48">
+              <KpiChart />
+            </div>
 
             {/* Business Questions */}
             <div className="space-y-2">
