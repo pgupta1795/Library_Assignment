@@ -22,6 +22,13 @@
       "when": 1735998315167,
       "tag": "0002_curvy_carmella_unuscione",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1736065703506,
+      "tag": "0003_naive_hex",
+      "breakpoints": true
     }
   ]
 }

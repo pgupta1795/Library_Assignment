@@ -1,18 +1,13 @@
 "use client";
 
-import {createKpi} from '@/lib/actions';
-import {zodResolver} from "@hookform/resolvers/zod";
-import {BoxIcon,Plus,X} from "lucide-react";
-import {useFieldArray,useForm} from "react-hook-form";
-import * as z from "zod";
-import {Button} from "./ui/button";
+import {Button} from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog";
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -20,9 +15,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import {Input} from "./ui/input";
-import {Textarea} from "./ui/textarea";
+} from "@/components/ui/form";
+import {Input} from "@/components/ui/input";
+import {Textarea} from "@/components/ui/textarea";
+import {createKpi} from '@/lib/actions';
+import {zodResolver} from "@hookform/resolvers/zod";
+import {BoxIcon,Plus,X} from "lucide-react";
+import {useFieldArray,useForm} from "react-hook-form";
+import * as z from "zod";
 
 const formSchema=z.object({
   title: z.string().min(1,"Title is required"),

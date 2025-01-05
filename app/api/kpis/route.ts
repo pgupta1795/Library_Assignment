@@ -1,15 +1,16 @@
-import {getKpis} from "@/lib/actions";
-import {NextResponse} from "next/server";
+import { getKpis, searchKpis } from '@/lib/actions';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const kpis = await getKpis();
-    console.log({kpis});
+    const searchParams = request.nextUrl.searchParams;
+    const query = searchParams.get('search');
+    const kpis = query ? await searchKpis(query) : await getKpis();
     return NextResponse.json(kpis);
   } catch (error) {
-    console.error({error});
+    console.error({ error });
     return NextResponse.json(
-      { error: "Failed to fetch KPIs" },
+      { error: 'Failed to fetch KPIs' },
       { status: 500 }
     );
   }

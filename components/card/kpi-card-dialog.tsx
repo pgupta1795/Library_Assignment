@@ -14,11 +14,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {toggleKpiFavorite} from '@/lib/actions';
 import {KpiData} from "@/lib/types";
-import {LayoutGrid} from "lucide-react";
+import {LayoutGrid,Star} from "lucide-react";
+import {Button} from '../ui/button';
 import {Separator} from "../ui/separator";
 
-type KPICardDialogProps = KpiData & {
+type KPICardDialogProps=KpiData&{
   children: React.ReactNode;
 };
 
@@ -29,6 +31,7 @@ export function KPICardDialog({
   tags,
   stats,
   questions,
+  favorite,
   children,
 }: KPICardDialogProps) {
   return (
@@ -92,7 +95,7 @@ export function KPICardDialog({
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Business Questions</h4>
               <div className="space-y-1">
-                {questions.map((question, index) => (
+                {questions.map((question,index) => (
                   <p key={index} className="text-sm text-muted-foreground">
                     {question}
                   </p>
@@ -101,6 +104,19 @@ export function KPICardDialog({
             </div>
           </CardContent>
         </Card>
+
+        <Button variant="ghost" size="icon"
+          onClick={async (e) => {
+            e.stopPropagation();
+            await toggleKpiFavorite(id,!favorite);
+          }}
+          className='absolute top-2 right-8'
+        >
+          <Star
+            className={`w-4 h-4 ${favorite? 'fill-yellow-400 text-yellow-400':'text-gray-400'
+              }`}
+          />
+        </Button>
       </DialogContent>
     </Dialog>
   );
