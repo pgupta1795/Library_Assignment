@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1735986082232,
+      "tag": "0000_unique_molten_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1735994509941,
+      "tag": "0001_magenta_gorilla_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1735998315167,
+      "tag": "0002_curvy_carmella_unuscione",
+      "breakpoints": true
+    }
+  ]
+}
